@@ -22,14 +22,15 @@
     background:rgba(0,0,0,0.1);
     color: #000;
     font-size:14px;
-    position: relative;
-    margin: auto;
-    margin-top: 200px;
+    position: absolute;
+    left: calc(50% - 125px);
+    transition: top 3s;
+    top:200px;
     /*animation:mymove 3s ;*/
     /*-webkit-animation:mymove 3s ;*/
     
   }
-  @keyframes mymove {
+  /*@keyframes mymove {
     0% {
       margin-top:200px;
     }
@@ -37,7 +38,7 @@
       margin-top:50px;
     }
    
-  }
+  }*/
   
   #message {
     opacity: 0;
@@ -64,15 +65,18 @@
 <body>
   <div id="evolope">
     <div id="message">
+      生日快乐,生日快乐,生日快乐生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,
       生日快乐,生日快乐,生日快乐生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐
     </div>
   </div>
   <div id="btn">点击</div>
-
+  <audio src="./music.mp3" id="Jaudio" class="media-audio"  preload loop="loop" hidden="false"></audio>  
   
 </body>
 </html>
 <script>
+  
+
 
   // png序列图
   class playImg {
@@ -152,7 +156,8 @@
 
   document.querySelector(`#btn`).addEventListener('click', event => {
     document.querySelector(`#message`).style.opacity = 1;
-    document.querySelector(`#evolope`).style.animation = 'mymove 3s';
+    document.querySelector(`#evolope`).style.top = '50px';
+    document.querySelector('#Jaudio').play()
   })
 
   // console.log(playbg1.init(), 909)
