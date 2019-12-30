@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  #img1, img2 {
+    position: absolute;
+    top:0;
+    left:0;
+  }
+</style>
+<body>
+  <div>
+    123
+    <img id="img1" src="" alt="">
+    <img id="img2" src="" alt="">
+  </div>
+  
+</body>
+</html>
+<script>
+  // png序列图
+  class playImg {
+    constructor(dom, params) {
+      this.params = params || {
+        min: 0,
+        max: 0,
+        index: 0,
+        interval: 100,
+        path:'',
+        nameLen:1,
+      }
+      this.timer = null;
+      this.stopValue = true;
+      this.dom = dom;
+      this.name = '';
+      this.init();
+    }
+    init() {  
+      if (this.dom && document.querySelector(`#${this.dom}`)) {
+        this.getName();   
+        document.querySelector(`#${this.dom}`).src = `${this.params.path}${this.name}.png`;
+        this.autoPlay();    
+      }
+    }
+    getName() {
+      this.name = '';
+      let dis = this.params.nameLen - this.params.index.toString().length;
+      for (let i = 0; i < dis; i++) {
+        this.name += '0'
+      }
+      this.name += this.params.index.toString()
+    }
+    autoPlay() {
+      this.stopValue = false;
+      this.timer = setInterval(e => {
+        this.params.index =  (this.params.index + 1) % (this.params.max - this.params.min + 1);
+        this.getName();
+        document.querySelector(`#${this.dom}`).src = `${this.params.path}${this.name}.png`;
+      }, this.params.interval)
+    }
+    stop() {
+      clearInterval(this.timer);
+      this.stopValue = true
+    }
+  }
+  
+  let playbg1 = new playImg('img1', {
+      min: 0,
+      max: 329,
+      index: 0,
+      interval: 33,
+      path:'./png/blue/blue_',
+      nameLen: 5
+  });
+  let playbg2 = new playImg('img2', {
+      min: 0,
+      max: 329,
+      index: 0,
+      interval: 33,
+      path:'./png/red/red_',
+      nameLen: 5
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.keyCode === 13) {
+      if (playbg1.stopValue) {
+        playbg1.autoPlay();
+        playbg2.autoPlay();
+      } else {
+        playbg1.stop();
+        playbg2.stop();
+      }
+     
+    }
+  })
+
+  document.querySelector(`#img2`).addEventListener('click', event => {
+    window.open('https://www.baidu.com/')
+  })
+
+  // console.log(playbg1.init(), 909)
+  
+ 
+  // img1 = `./png/blue/blue_${00000 + playbg1.start()}.png`
+  // console.log(img1, 'img')
+
+  
+</script>
