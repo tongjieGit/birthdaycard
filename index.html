@@ -13,27 +13,42 @@
     margin: 0;
     width: 100%;
     height:100%;
+    background-image: url('./background.png');
+    background-size: 100% 100%; 
+    overflow: hidden;
     /*background-color: pink;*/
     
 
 
   }
   .img {
-    width: 100%;
-    height: 100%;
-    background-image: url('./bg.png');
-    background-size: 100% 100%; 
+    position: absolute;
+    bottom: -10px;
+    width: 375px;
+    left: calc(50% - 186px);
+    height: 260px;
+
+    /*height: 100%;*/
+    background-image: url('./people.png');
+    background-size: 100% auto; 
+    background-repeat: no-repeat;
+    z-index: 3;
+    
   }
   #evolope {
-    width: 250px;
-    height: 300px;
-    background:rgba(0,0,0,0.1);
+    width: 265px;
+    height: 376px;
+    position: absolute;
+    /*top: 200px;*/
+    bottom:-50px;
+    left:calc(50% - 136px);
     color: #000;
     font-size:14px;
-    position: absolute;
-    left: calc(50% - 125px);
-    transition: top 3s;
-    top:200px;
+    transition: bottom 3s;
+    background-image: url('./letter.png');
+    background-size: 100% 100%; 
+    z-index: 2;
+    
     /*animation:mymove 3s ;*/
     /*-webkit-animation:mymove 3s ;*/
     
@@ -50,42 +65,65 @@
   
   #message {
     font-size:16px;
-    padding: 8px 16px;
+    padding: 8px 24px;
     line-height: 24px;
     opacity: 0;
+    color: #333;
     transition:opacity 3s;
     -moz-transition:opacity 3s; /* Firefox 4 */
     -webkit-transition:opacity 3s; /* Safari and Chrome */
     -o-transition:opacity 3s; /* Opera */
   }
   #btn {
-    width:100px;
-    height: 40px;
+    width:60px;
+    height: 60px;
     /*border: 1px solid #3377ff;*/
     border-radius: 16px;
     position: absolute;
-    left:calc(50% - 50px);
-    bottom: 140px;
+    left:calc(50% - 40px);
+    bottom: 135px;
     text-align: center;
     line-height: 40px;
     /*background: #3377ff;*/
-    color: #fff;
+    /*color: #fff;*/
+    z-index: 4;
+    background: opacity;
+  }
+  .to-name {
+    margin: 0;
+    position: relative;
+    margin-top: 116px;
+  }
+  .from-name {
+    margin: 0;
+    position: relative;
+    margin-top: 22px;
+    margin-left: 120px;
+  }
+  .text {
+    margin: 0;
+    position: relative;
+    margin-top: 4px;
+    line-height: 34px;
   }
 
 </style>
 <body>
-  <div class="img">
+  <div class="img"></div>
     
 
   <div id="evolope">
     <div id="message">
-      生日快乐,生日快乐,生日快乐生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,
-      生日快乐,生日快乐,生日快乐生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐
+      <p class="to-name">亲爱的寿星:</p>
+      <p class="text">&nbsp;&nbsp;&nbsp;&nbsp;祝你们生日快乐！人生路上的每一天都是精彩的，相信你们以后定会被幸福环绕。我们小小的心意，愿你们开心～</p>
+      <p class="from-name">阿杰与阿洁</p>
+    <!--   生日快乐,生日快乐,生日快乐生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,
+      生日快乐,生日快乐,生日快乐生日快乐,生日快乐,生 -->
     </div>
   </div>
   <div id="btn"></div>
   <audio src="./music.mp3" id="Jaudio" class="media-audio" autoplay="autoplay" preload loop="loop" hidden="false"></audio>  
-    </div>
+    
 </body>
 </html>
 <script>
@@ -170,7 +208,7 @@
 
   document.querySelector(`#btn`).addEventListener('click', event => {
     document.querySelector(`#message`).style.opacity = 1;
-    document.querySelector(`#evolope`).style.top = '50px';
+    document.querySelector(`#evolope`).style.bottom = '170px';
     document.querySelector('#Jaudio').play()
   })
 
