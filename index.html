@@ -29,13 +29,13 @@
   .img {
     position: absolute;
     bottom: 0px;
-    width: 350px;
-    left: calc(50% - 175px);
+    width: 370px;
+    left: calc(50% - 187px);
     height: 260px;
 
     /*height: 100%;*/
     background-image: url('./people.png');
-    background-size: 350px 260px; 
+    background-size: 370px 260px; 
     background-repeat: no-repeat;
     z-index: 3;
     
@@ -130,4 +130,28 @@
     document.querySelector(`#message`).style.opacity = 1;
     document.querySelector(`#evolope`).style.bottom = '170px';
   })
+   //存放图片路径的数组
+   var imgSrcArr = [
+        './people.png',
+        './letter.png',
+        './laba.png',
+    ];
+
+    var imgWrap = [];
+
+    function preloadImg(arr) {
+        for(let i =0; i< arr.length ;i++) {
+            imgWrap[i] = new Image();
+            imgWrap[i].src = arr[i];
+        }
+    }
+
+    preloadImg(imgSrcArr);
+
+    //或者延迟的文档加载完毕在加载图片
+
+    $(function () {
+        preloadImg(imgSrcArr);
+    })
+
 </script>
