@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>生日快乐</title>
 </head>
@@ -11,26 +11,31 @@
   html,body {
     padding: 0;
     margin: 0;
+    border:0;
     width: 100%;
     height:100%;
-    background-image: url('./background.png');
-    background-size: 100% 100%; 
+    background-color: #c61e00;
     overflow: hidden;
-    /*background-color: pink;*/
-    
-
-
+  }
+  .laba {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 150px;
+    background-image: url('./laba.png');
+    background-size: 100% 150px; 
+    background-repeat: no-repeat;
   }
   .img {
     position: absolute;
-    bottom: -10px;
-    width: 375px;
-    left: calc(50% - 186px);
+    bottom: 0px;
+    width: 350px;
+    left: calc(50% - 175px);
     height: 260px;
 
     /*height: 100%;*/
     background-image: url('./people.png');
-    background-size: 100% auto; 
+    background-size: 350px 260px; 
     background-repeat: no-repeat;
     z-index: 3;
     
@@ -39,30 +44,25 @@
     width: 265px;
     height: 376px;
     position: absolute;
-    /*top: 200px;*/
+
     bottom:-50px;
     left:calc(50% - 136px);
     color: #000;
     font-size:14px;
     transition: bottom 3s;
     background-image: url('./letter.png');
-    background-size: 100% 100%; 
+    background-size:265px 376px; 
     z-index: 2;
-    
-    /*animation:mymove 3s ;*/
-    /*-webkit-animation:mymove 3s ;*/
-    
   }
-  /*@keyframes mymove {
-    0% {
-      margin-top:200px;
-    }
-    100% {
-      margin-top:50px;
-    }
-   
-  }*/
-  
+  #evolope-box {
+    width: 265px;
+    height: 100%;
+    position: absolute;
+    bottom:0px;
+    left:calc(50% - 136px);
+    overflow: hidden;
+    z-index: 2;
+  }
   #message {
     font-size:16px;
     padding: 8px 24px;
@@ -110,15 +110,14 @@
 </style>
 <body>
   <div class="img"></div>
-    
-
-  <div id="evolope">
-    <div id="message">
-      <p class="to-name">亲爱的寿星:</p>
-      <p class="text">&nbsp;&nbsp;&nbsp;&nbsp;祝你们生日快乐！人生路上的每一天都是精彩的，相信你们以后定会被幸福环绕。我们小小的心意，愿你们开心～</p>
-      <p class="from-name">阿杰与阿洁</p>
-    <!--   生日快乐,生日快乐,生日快乐生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,生日快乐,
-      生日快乐,生日快乐,生日快乐生日快乐,生日快乐,生 -->
+    <div class="laba"></div>
+  <div id="evolope-box">
+    <div id="evolope">
+      <div id="message">
+        <p class="to-name">亲爱的寿星:</p>
+        <p class="text">&nbsp;&nbsp;&nbsp;&nbsp;祝你们生日快乐！人生路上的每一天都是精彩的，相信你们以后定会被幸福环绕。我们小小的心意，愿你们开心～</p>
+        <p class="from-name">阿杰与阿洁</p>
+      </div>
     </div>
   </div>
   <div id="btn"></div>
@@ -127,96 +126,8 @@
 </body>
 </html>
 <script>
-  
-
-
-  // png序列图
-  class playImg {
-    constructor(dom, params) {
-      this.params = params || {
-        min: 0,
-        max: 0,
-        index: 0,
-        interval: 100,
-        path:'',
-        nameLen:1,
-      }
-      this.timer = null;
-      this.stopValue = true;
-      this.dom = dom;
-      this.name = '';
-      this.init();
-    }
-    init() {  
-      if (this.dom && document.querySelector(`#${this.dom}`)) {
-        this.getName();   
-        document.querySelector(`#${this.dom}`).src = `${this.params.path}${this.name}.png`;
-        this.autoPlay();    
-      }
-    }
-    getName() {
-      this.name = '';
-      let dis = this.params.nameLen - this.params.index.toString().length;
-      for (let i = 0; i < dis; i++) {
-        this.name += '0'
-      }
-      this.name += this.params.index.toString()
-    }
-    autoPlay() {
-      this.stopValue = false;
-      this.timer = setInterval(e => {
-        this.params.index =  (this.params.index + 1) % (this.params.max - this.params.min + 1);
-        this.getName();
-        document.querySelector(`#${this.dom}`).src = `${this.params.path}${this.name}.png`;
-      }, this.params.interval)
-    }
-    stop() {
-      clearInterval(this.timer);
-      this.stopValue = true
-    }
-  }
-  
-  let playbg1 = new playImg('img1', {
-      min: 0,
-      max: 329,
-      index: 0,
-      interval: 33,
-      path:'./png/blue/blue_',
-      nameLen: 5
-  });
-  let playbg2 = new playImg('img2', {
-      min: 0,
-      max: 329,
-      index: 0,
-      interval: 33,
-      path:'./png/red/red_',
-      nameLen: 5
-  });
-
-  document.addEventListener('keydown', event => {
-    if (event.keyCode === 13) {
-      if (playbg1.stopValue) {
-        playbg1.autoPlay();
-        playbg2.autoPlay();
-      } else {
-        playbg1.stop();
-        playbg2.stop();
-      }
-     
-    }
-  })
-
   document.querySelector(`#btn`).addEventListener('click', event => {
     document.querySelector(`#message`).style.opacity = 1;
     document.querySelector(`#evolope`).style.bottom = '170px';
-    // document.querySelector('#Jaudio').play()
   })
-
-  // console.log(playbg1.init(), 909)
-  
- 
-  // img1 = `./png/blue/blue_${00000 + playbg1.start()}.png`
-  // console.log(img1, 'img')
-
-  
 </script>
